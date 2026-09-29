@@ -82,13 +82,26 @@ func ConcatSlices[T comparable](s ...[]T) []T {
 	return slices.Concat(s...)
 }
 
-func GroupBy[T comparable, E comparable](slice []T, p func(el T) E) map[T][]E {
-	result := make(map[T][]E, len(slice))
+func GroupBy[T comparable, GroupByParam comparable, GroupByValue comparable](slice []T, p func(el T) (GroupByParam, GroupByValue)) map[GroupByParam][]GroupByValue {
+	result := make(map[GroupByParam][]GroupByValue, len(slice))
 
 	for _, x := range slice {
-		result[x] = append(result[x], p(x))
+		param, value := p(x)
+		result[param] = append(result[param], value)
 	}
 
+	return result
+}
+
+func CountSliceElementsFrequency[T comparable](slice []T) map[T]int {
+	result := make(map[T]int, len(slice))
+	for _, el := range slice {
+		if _, ok := result[el]; ok {
+			result[el]++
+		} else {
+			result[el] = 1
+		}
+	}
 	return result
 }
 
