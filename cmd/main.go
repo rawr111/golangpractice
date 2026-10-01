@@ -13,6 +13,8 @@ func main() {
 }
 
 func strTestScenario() {
+	fmt.Println(utils.CapitalizeLetters("it was capitalized. IT WASNT CAPITALIZED. это просто текст на русском"))
+
 	s := "test_!_scenario_!_to_!_demonstrate_!_how_!_it_!_works_!yo"
 	splitted := utils.Split(s, "_!_")
 	for _, word := range splitted {

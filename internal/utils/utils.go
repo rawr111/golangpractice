@@ -159,3 +159,21 @@ func Split(input string, key string) []string {
 
 	return result
 }
+
+const lettersDiff = 'a' - 'A'
+
+// капитализирует все буквы латинского алфавита в строке
+func CapitalizeLetters(s string) string {
+	newStr := strings.Builder{}
+	newStr.Grow(len(s))
+
+	for _, r := range s {
+		var newRune rune = r
+		if r >= 'a' && r <= 'z' {
+			newRune -= lettersDiff
+		}
+		newStr.WriteRune(newRune)
+	}
+
+	return newStr.String()
+}
