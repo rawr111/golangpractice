@@ -96,3 +96,57 @@ func TestGroupBy(t *testing.T) {
 		}
 	})
 }
+
+func TestSplit(t *testing.T) {
+	testDataSet := []struct {
+		Name   string
+		Key    string
+		Text   string
+		Expect []string
+	}{
+		{
+			Name:   "test #1",
+			Key:    "--",
+			Text:   "--",
+			Expect: []string{"", ""},
+		},
+		{
+			Name:   "test #2",
+			Key:    "a",
+			Text:   "--a--",
+			Expect: []string{"--", "--"},
+		},
+		{
+			Name:   "test #3",
+			Key:    "a--",
+			Text:   "--a--",
+			Expect: []string{"--", ""},
+		},
+		{
+			Name:   "test #4",
+			Key:    "a",
+			Text:   "--a--",
+			Expect: []string{"--", "--"},
+		},
+		{
+			Name:   "test #5",
+			Key:    "!--",
+			Text:   "--a--!--b--!--!-",
+			Expect: []string{"--a--", "b--", "!-"},
+		},
+		{
+			Name:   "test #6",
+			Key:    "0000000",
+			Text:   "000",
+			Expect: []string{"000"},
+		},
+	}
+	for _, test := range testDataSet {
+		t.Run(test.Name, func(t *testing.T) {
+			result := Split(test.Text, test.Key)
+			if !equalSlices(result, test.Expect) {
+				t.Errorf("split failed, expected: %v, got: %v", test.Expect, result)
+			}
+		})
+	}
+}

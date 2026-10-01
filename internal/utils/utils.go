@@ -123,3 +123,39 @@ func JoinWords(words []string) string {
 	}
 	return b.String()
 }
+
+func Split(input string, key string) []string {
+	if key == "" {
+		return []string{input}
+	}
+
+	result := []string{}
+	inputRunes := []rune(input)
+	keyRunes := []rune(key)
+	word := strings.Builder{}
+	word.Grow(len(input))
+
+	var i int = 0
+	for i < len(inputRunes) {
+		var isCorrectSeparator bool = true
+		for j, keyRune := range keyRunes {
+			if i+j >= len(inputRunes) || keyRune != inputRunes[i+j] {
+				isCorrectSeparator = false
+				break
+			}
+		}
+
+		if isCorrectSeparator {
+			result = append(result, word.String())
+			word.Reset()
+			i += len(keyRunes)
+		} else {
+			word.WriteRune(inputRunes[i])
+			i++
+		}
+	}
+
+	result = append(result, word.String())
+
+	return result
+}

@@ -7,13 +7,22 @@ import (
 )
 
 func main() {
+	strTestScenario()
 	sliceTestScenario([]int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9})
 	mapTestScenario()
 }
 
-type point struct {
-	X int
-	Y int
+func strTestScenario() {
+	s := "test_!_scenario_!_to_!_demonstrate_!_how_!_it_!_works_!yo"
+	splitted := utils.Split(s, "_!_")
+	for _, word := range splitted {
+		fmt.Println(word)
+	}
+
+	splitted = utils.Split("aaaba", "aab")
+	for _, word := range splitted {
+		fmt.Println(word)
+	}
 }
 
 func mapTestScenario() {
