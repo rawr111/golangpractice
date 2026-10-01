@@ -140,6 +140,12 @@ func TestSplit(t *testing.T) {
 			Text:   "000",
 			Expect: []string{"000"},
 		},
+		{
+			Name:   "test #7",
+			Key:    "тест",
+			Text:   "test тест test тест and test тест",
+			Expect: []string{"test ", " test ", " and test ", ""},
+		},
 	}
 	for _, test := range testDataSet {
 		t.Run(test.Name, func(t *testing.T) {
